@@ -1,49 +1,113 @@
-*{
+/* Using CSS variables for an easy-to-manage color scheme */
+:root {
+    --bg-color: #22252D;
+    --calculator-bg: #292D36;
+    --screen-bg: #292D36;
+    --button-bg: #272B33;
+    --operator-bg: #363a44;
+    --equals-bg: #5f63bf;
+    --text-color: #FFFFFF;
+    --operator-text-color: #a3a6b0;
+    --equals-text-color: #FFFFFF;
+}
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-body{
+
+body {
+    font-family: 'Poppins', sans-serif;
     display: flex;
-    background-color: #000000;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
 }
-h1{
-    margin: 50px;
-    color: rgb(255, 255, 255);
+
+.calculator-body {
+    width: 320px;
+    background-color: var(--calculator-bg);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-button{
-    width: 50px;
-    height: 50px;
-    margin: 2px;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: #6364bf;
-    font-weight: bolder;
+
+.calculator-screen {
+    width: 100%;
+    height: 80px;
+    background-color: var(--screen-bg);
+    color: var(--text-color);
+    text-align: right;
+    padding: 20px;
+    font-size: 2.5rem;
+    font-weight: 500;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    /* For a cleaner scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--operator-bg) var(--screen-bg);
 }
-button:hover{
+
+/* Animation for when result is displayed */
+.screen-result-animation {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.5; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.calculator-keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.button {
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.button:hover {
+    background-color: #3a3f4c;
+}
+
+/* "Press down" animation */
+.button:active {
+    transform: scale(0.95);
+}
+
+/* Styling different button types */
+.button.operator {
+    background-color: var(--operator-bg);
+    color: var(--operator-text-color);
+}
+
+.button.operator:hover {
+    background-color: #494e5e;
+}
+
+.button.equals {
+    background-color: var(--equals-bg);
+    color: var(--equals-text-color);
+    grid-column: span 2; /* Make the equals button wider */
+}
+
+.button.equals:hover {
     background-color: #4d4ea6;
 }
-.input{
-    text-align: end;
-    font-size: 18px;
-    font-weight: bolder;
-    width: 200px;
-    height: 50px;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 5px;
-    margin: 2px 2px 8px 2px;
-    padding: 10px;
-    background-color: rgb(83, 0, 0);
-    color: aliceblue;
-    overflow-x: scroll;
-    scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 128, 0, 0);
-    
-}
-.plastic{
-    background-color: rgb(66, 64, 64);
-    padding: 30px;
-    border-radius: 5px;
-    border: 2px solid black;
+
+.button.zero {
+    grid-column: span 1;
 }
